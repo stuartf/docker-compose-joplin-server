@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  joplin:
+    image: joplin/server
+    restart: unless-stopped
+    environment:
+      - APP_BASE_URL
+      - APP_PORT=22300
+      - DB_CLIENT=pg
+      - POSTGRES_DATABASE=joplin
+      - POSTGRES_USER=joplin
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD
+    ports:
+      - "22300:22300"
+
+  db:
+        image: postgres:15
+        volumes:
+            - ./data/postgres:${DB_DATA_PATH}
+        restart: unless-stopped
+        environment:
+            - POSTGRES_PASSWORD
+            - POSTGRES_USER=joplin
+            - POSTGRES_DB=joplin
