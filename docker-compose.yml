@@ -19,7 +19,7 @@ services:
   db:
         image: postgres:15
         volumes:
-            - ./data/postgres:${DB_DATA_PATH}
+            - ${DB_DATA_PATH}:/var/lib/postgresql/data
         restart: unless-stopped
         environment:
             - POSTGRES_PASSWORD
